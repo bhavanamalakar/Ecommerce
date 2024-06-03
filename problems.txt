@@ -1,0 +1,10 @@
+1 - customer care chat 
+2 - checkout 
+3 - payment 
+4 - cart 
+5 - wishlist 
+6 - review and comment 
+7 - seller dashboard (react native) 
+8 - filters 
+9 - discount 
+10 - dark mode 

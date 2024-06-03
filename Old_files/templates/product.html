@@ -1,0 +1,239 @@
+{% extends 'master.html' %}
+{% block body %}
+{% load static %}
+
+{% if product|length < 1 %} <div class="container">
+    <br><br><br><br><br>
+
+    <center><img src= "{% static 'img/bg-img/404.png' %}" />
+        <h1><b>OPPS!</b> We Couldn’t Find this Product</h1>
+        <p>Uh... So it looks like you brock something. The page you are looking for has up and Vanished.</p>
+        <h2><a href="{% url 'index' %}">Bring me back Home</a></h2>
+    </center>
+    </div>
+
+    {% else %}
+
+    <!-- ##### Breadcumb Area Start ##### -->
+    <div class="breadcumb_area bg-img" style="background-image: url(/static/img/bg-img/breadcumb.jpg);">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="page-title text-center">
+                        <h2>Shop</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcumb Area End ##### -->
+
+
+
+
+    <!-- ##### Shop Grid Area Start ##### -->
+    <section class="shop_grid_area section-padding-80">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-4 col-lg-3">
+                    <div class="shop_sidebar_area">
+
+                        <!-- ##### Single Widget ##### -->
+                        <div class="widget catagory mb-50">
+                            <!-- Widget Title -->
+                            <h6 class="widget-title mb-30">Catagories</h6>
+
+                            <!--  Catagories  -->
+                            <div class="catagories-menu">
+                                <ul id="menu-content2" class="menu-content collapse show">
+                                    {% for cat in category %}
+                                    <li data-toggle="collapse" data-target="#{{cat.name}}">
+                                        <a href="#">{{cat.name}}</a>
+                                        <ul class="sub-menu collapse show" id="{{cat.name}}">
+                                            {% for i in cat.subcategory_set.all %}
+                                            <li><a href="/product/?category={{i.id}}">{{i.name}}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                    {% endfor %}
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- ##### Single Widget ##### -->
+                        <div class="widget price mb-50">
+                            <!-- Widget Title -->
+                            <h6 class="widget-title mb-30">Filter by</h6>
+                            <!-- Widget Title 2 -->
+                            <p class="widget-title2 mb-30">Price</p>
+
+                            <div class="widget-desc">
+                                <div class="slider-range">
+                                    <div data-min="100" data-max="20000" data-unit="₹"
+                                        class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"
+                                        data-value-min="100" data-value-max="20000" data-label-result="Range:">
+                                        <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
+                                        <span class="ui-slider-handle ui-state-default ui-corner-all"
+                                            tabindex="0"></span>
+                                        <span class="ui-slider-handle ui-state-default ui-corner-all"
+                                            tabindex="0"></span>
+                                    </div>
+                                    <div class="range-price">Range: ₹100.00 - ₹20000.00</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ##### Single Widget ##### -->
+                        <div class="widget color mb-50">
+                            <!-- Widget Title 2 -->
+                            <p class="widget-title2 mb-30">Color</p>
+                            <div class="widget-desc">
+                                <ul class="d-flex">
+                                    <li><a href="#" class="color1"></a></li>
+                                    <li><a href="#" class="color2"></a></li>
+                                    <li><a href="#" class="color3"></a></li>
+                                    <li><a href="#" class="color4"></a></li>
+                                    <li><a href="#" class="color5"></a></li>
+                                    <li><a href="#" class="color6"></a></li>
+                                    <li><a href="#" class="color7"></a></li>
+                                    <li><a href="#" class="color8"></a></li>
+                                    <li><a href="#" class="color9"></a></li>
+                                    <li><a href="#" class="color10"></a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- ##### Single Widget ##### -->
+                        <div class="widget brands mb-50">
+                            <!-- Widget Title 2 -->
+                            <p class="widget-title2 mb-30">Brands</p>
+                            <div class="widget-desc">
+                                <ul>
+                                    {% for i in brand %}
+                                    <li><a href="/product/?brand={{i.name}}">{{i.name}}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-8 col-lg-9">
+                    <div class="shop_grid_product_area">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="product-topbar d-flex align-items-center justify-content-between">
+                                    <!-- Total Products -->
+                                    <div class="total-products">
+                                        <p><span>{{product_count}}</span> products found</p>
+                                    </div>
+                                    <!-- Sorting -->
+                                    <div class="product-sorting d-flex">
+                                        <p>Sort by:</p>
+                                        <form action="#" method="get">
+                                            <select name="select" id="sortByselect">
+                                                <option value="value">Highest Rated</option>
+                                                <option value="value">Newest</option>
+                                                <option value="value">Price: $$ - $</option>
+                                                <option value="value">Price: $ - $$</option>
+                                            </select>
+                                            <input type="submit" class="d-none" value="">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            {% for prod in product %}
+                            <!-- Single Product -->
+                            <div class="col-12 col-sm-6 col-lg-4"
+                                onload="myfunc('{{prod.new_or_not}}','{{prod.discount}}')">
+                                <div class="single-product-wrapper">
+                                    <!-- Product Image -->
+                                    <div class="product-img">
+                                        <!-- <img src="https://s3storage.duoples.com/local-media/{{prod.image}}" alt="Product Image" width="100px"> -->
+
+                                        <!-- Hover Thumb -->
+                                        <img class="hover-img" src="/media/{{prod.image}}" alt="" width="100px">
+
+                                        <!-- Product Badge -->
+                                        {% if prod.discount and prod.new_or_not %}
+                                        
+                                        <div class="product-badge new-badge">
+                                            <span>New</span>
+                                        </div>
+                                        
+                                        <div class="product-badge offer-badge">
+                                            <span>-{{ prod.discount_percentage }}%</span>
+                                        </div>
+                                        {% elif prod.discount %}
+                                        <div class="product-badge offer-badge">
+                                            <span>-{{ prod.discount_percentage }}%</span>
+                                        </div>
+                                        {% elif prod.new_or_not %}
+                                        <div class="product-badge new-badge">
+                                            <span>New</span>
+                                        </div>
+                                        {% endif %}
+                                        <!-- Favourite -->
+                                        <div class="product-favourite">
+                                            <a href="#" class="favme fa fa-heart"></a>
+                                        </div>
+                                    </div>
+
+                                    <!-- Product Description -->
+                                    <div class="product-description">
+                                        <span>{{prod.brand}}</span>
+                                        <a href="{{prod.id}}">
+                                            <h6>{{prod.name}}</h6>
+                                        </a>
+                                        {% if prod.discount %}
+                                        <p class="product-price"><span class="old-price">₹{{prod.price}}.00</span> ₹{{prod.discount_amt}}.00</p>
+                                        {% else %}
+                                        <p class="product-price">₹{{prod.price}}.00</p>
+                                        {% endif %}
+                                        <!-- Hover Content -->
+                                        <div class="hover-content">
+                                            <!-- Add to Cart -->
+                                            <div class="add-to-cart-btn">
+                                                <a href="{% url 'cart_add' prod.id %}"  class="btn essence-btn">Add to Cart</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+ 
+
+
+
+                        </div>
+                    </div>
+                    <!-- Pagination -->
+                    <nav aria-label="navigation">
+                        <ul class="pagination mt-50 mb-70">
+                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">...</a></li>
+                            <li class="page-item"><a class="page-link" href="#">21</a></li>
+                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Shop Grid Area End ##### -->
+
+
+
+    <!-- {% endif %} -->
+
+    {% endblock %}

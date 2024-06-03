@@ -1,0 +1,67 @@
+{% extends 'master.html' %}
+{% block body %}
+{% load static %}
+<!-- ##### Single Product Details Area Start ##### -->
+<section class="single_product_details_area d-flex align-items-center">
+
+    <!-- Single Product Thumb -->
+    <div id='img_m' class="single_product_thumb clearfix">
+        <div id="img_c" class="product_thumbnail_slides owl-carousel">
+            <img src="/media/{{product.image}}" alt="">
+            {% if product.image1 %}
+            <img src="/media/{{product.image1}}" alt="">
+            {% endif %}
+            {% if product.image2 %}
+            <img src="/media/{{product.image2}}" alt="">
+            {% endif %}
+            {% if product.image3 %}
+            <img src="/media/{{product.image3}}" alt="">
+            {% endif %}
+            <img src="/media/{{product.image}}" alt="">
+        </div>
+    </div>
+
+    <!-- Single Product Description -->
+    <form class="cart-form clearfix" method="get" action="{% url 'cart_add' product.id %}">
+        {% csrf_token %}
+    <div class="single_product_desc clearfix">
+        <span>{{product.brand}}</span>
+        <a href="#">
+            <h2>{{product.name}}</h2>
+        </a>
+        {% if product.discount_amt %}
+        <p class="product-price"><span class="old-price">₹{{product.price}}</span> ₹{{product.discount_amt}}</p>
+        {% else %}
+        <p class="product-price">₹{{product.price}}</p>
+        {% endif %}
+        <p class="product-desc">{{product.description}}</p>
+            <!-- Select Box -->
+            <div class="select-box d-flex mt-50 mb-30">
+                <select name="select" id="productSize" class="mr-5">
+                    {% for size in product.size.all %}
+                    <option value="{{size}}">Size: {{size}}</option>
+                    {% endfor %}
+
+                </select>
+                <select name="select" id="productColor">
+                    {% for color in product.color.all %}
+                    <option value="{{color}}">Color: {{color}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <!-- Cart & Favourite Box -->
+            <div class="cart-fav-box d-flex align-items-center">
+                <!-- Cart -->
+                <button type="submit" name="addtocart" value="5" class="btn essence-btn">Add to cart</button>
+                <!-- Favourite -->
+                <div class="product-favourite ml-4">
+                    <a href="#" class="favme fa fa-heart"></a>
+                </div>
+            </div>
+    </div>
+</form>
+</section>
+
+
+
+{% endblock %}

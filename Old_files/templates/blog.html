@@ -1,0 +1,75 @@
+{% extends 'master.html' %}
+{% block body %}
+{% load static %}
+
+
+
+
+
+
+{% if blog|length < 1 %} <div class="container">
+    <br><br><br><br><br>
+
+    <center><img src="{% static 'img/bg-img/404.png' %}"/>
+        <h1><b>OPPS!</b> We Couldn’t Find The Blogs</h1>
+        <p>Uh... So it looks like there aren't any blogs available yet.</p>
+        <h2><a href="{% url 'index' %}">Bring me back Home</a></h2>
+    </center>
+    </div>
+
+
+    {% else %}
+
+    <!-- ##### Breadcumb Area Start ##### -->
+    <div class="breadcumb_area breadcumb-style-two bg-img"
+        style="background-image: url(../static/img/bg-img/breadcumb2.jpg);">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="page-title text-center">
+                        <h2>Welcome to our Blogging Page</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcumb Area End ##### -->
+
+    <!-- ##### Blog Wrapper Area Start ##### -->
+
+
+
+
+    <div class="blog-wrapper section-padding-80">
+        <div class="container">
+            <div class="row">
+
+                {% for b in blog %}
+                <div class="col-12 col-lg-6">
+                    <div class="single-blog-area mb-50">
+                        <img src="/media/{{b.image}}" alt="">
+                        <!-- Post Title -->
+                        <div class="post-title">
+                            <a href="#">{{b.title}}</a>
+                        </div>
+                        <!-- Hover Content -->
+                        <div class="hover-content">
+                            <!-- Post Title -->
+                            <div class="hover-post-title">
+                                <a href="#">{{b.title}}</a>
+                            </div>
+                            <p>{{b.short_description}}</p>
+                            <a href="/blog/{{b.blog_id}}">Continue reading <i class="fa fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
+
+    {% endblock %}

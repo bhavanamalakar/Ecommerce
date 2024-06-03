@@ -1,0 +1,54 @@
+{% extends 'master.html' %}
+{% block body %}
+{% load static %}
+
+
+
+
+
+<div class="single-blog-wrapper">
+
+    <!-- Single Blog Post Thumb -->
+    <div class="single-blog-post-thumb">
+        <img src="/media/{{blog.image}}" alt="">
+    </div>
+
+    <!-- Single Blog Content Wrap -->
+    <div class="single-blog-content-wrapper d-flex">
+
+        <!-- Blog Content -->
+        <div class="single-blog--text">
+            <h2>{{blog.title}}</h2>
+            <p>{{blog.short_description}}</p>
+
+            <blockquote>
+                <h6><i class="fa fa-quote-left" aria-hidden="true"></i> Quisque sagittis non ex eget vestibulum. Sed nec ultrices dui. Cras et sagittis erat. Maecenas pulvinar, turpis in dictum tincidunt, dolor nibh lacinia lacus.</h6>
+                <span>Liam Neeson</span>
+            </blockquote>
+
+            <p>{{blog.description}}</p>
+        </div>
+
+        <!-- Related Blog Post -->
+        {% if blog.o_blog|length > 1 %}
+        <div class="related-blog-post">
+            <!-- Single Related Blog Post -->
+            {% for i in blog.o_blog %}
+            <div class="single-related-blog-post">
+                <img src="/media/{{i.image}}" alt="">
+                <a href="/blog/{{i.blog_id}}">
+                    <h5>{{i.short_description}}</h5>
+                </a>
+            </div>
+            {% endfor %}
+            
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+
+
+
+{% endblock %}

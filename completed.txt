@@ -1,0 +1,8 @@
+login 
+signup 
+contact_us
+password_reset
+blog 
+
+
+pip freeze | %{$_.split('==')[0]} | %{pip uninstall -y $_}
