@@ -253,7 +253,7 @@ class Cart(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="carts",default=1)
     date =  models.DateField(auto_now_add=True)
-    grand_total = models.DecimalField(max_digits=10, decimal_places=2)
+    grand_total = models.DecimalField(max_digits=10, decimal_places=2,null=True)
 
     @property
     def items(self):
@@ -265,7 +265,7 @@ class Cart(models.Model):
     def calculate_grand_total(self):
         total = sum(item.quantity * item.price for item in self.items.all())
         self.grand_total = total
-        self.save()
+        self.save(update_fields=['grand_total'])
     
 class Cartitems(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name="items", null=True, blank=True)

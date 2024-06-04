@@ -169,13 +169,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = UserProfile
         fields = '__all__'  
         
-        
-# class CheckoutSerializer(serializers.Serializer):
-#     cart_id = serializers.UUIDField()
-#     address = serializers.CharField(max_length=255)
-#     phone = serializers.CharField(max_length=10)
-#     pincode = serializers.CharField(max_length=6)
-#     payment_details = serializers.JSONField()
+
 
 class UserPreferenceSerializer(serializers.ModelSerializer):
     class Meta:

@@ -21,6 +21,10 @@ router.register(r'addresses', AddressViewSet, basename='address')
 router.register(r'user-profile', UserProfileViewSet, basename='user-profile')
 router.register(r'wishlist', WishlistViewSet, basename='wishlist')
 
+# router.register(r'carts', CartViewSet, basename='cart')
+# router.register(r'carts/(?P<cart_pk>[0-9a-f-]+)/items', CartItemViewSet, basename='cart-item')
+
+
 router.register(r'carts', CartViewSet, basename='cart')
 
 # Nested router for cart items
@@ -44,5 +48,5 @@ urlpatterns = [
     path('password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
     path('', include(router.urls)),
     path('', include(carts_router.urls)),
-    
+
 ]

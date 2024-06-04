@@ -199,14 +199,14 @@ class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     permission_classes = [IsAuthenticated]
-    # authentication_classes = [TokenAuthentication]
+
 
 
 class PaymentViewSet(viewsets.ModelViewSet):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
     permission_classes = [IsAuthenticated]
-    # authentication_classes = [TokenAuthentication]
+    
 
 
 class AddressViewSet(viewsets.ModelViewSet):
@@ -313,7 +313,6 @@ def change_password(request):
                 return Response({'message': 'Password changed successfully.'}, status=status.HTTP_200_OK)
             return Response({'error': 'Incorrect old password.'}, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 
 class CheckoutView(generics.CreateAPIView):
